@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AM Sports Therapy — Ana Maria Virlan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f2eff8; --stone: #cdc2e0; --dark: #1a1225; --mid: #3b2d55;
+    --warm: #7b5ea7; --accent: #9b6dcc; --gold: #b98fe0; --white: #faf8fd;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "DM Sans", sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 3rem; background: rgba(242,239,248,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(155,109,204,0.15); }
+  .nav-logo { text-decoration: none; display: flex; align-items: center; }
+  .nav-logo-img { height: 44px; width: auto; filter: drop-shadow(0 0 8px rgba(155,109,204,0.55)); transition: filter 0.3s; }
+  .nav-logo-img:hover { filter: drop-shadow(0 0 16px rgba(155,109,204,0.9)); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: #6a3d9a; text-decoration: none; transition: color 0.2s; font-weight: 500; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta { background: #6a3d9a !important; color: var(--cream) !important; padding: 0.55rem 1.4rem; border-radius: 2px; }
+  .nav-cta:hover { background: var(--accent) !important; }
+  .nav-insta { display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff !important; padding: 0.55rem 1.1rem; border-radius: 2px; font-size: 0.75rem !important; letter-spacing: 0.1em; transition: opacity 0.2s !important; white-space: nowrap; }
+  .nav-insta:hover { opacity: 0.85 !important; }
+  .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-hamburger span { display: block; width: 100%; height: 1.5px; background: #6a3d9a; transition: transform 0.3s, opacity 0.3s; transform-origin: center; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-drawer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99; background: var(--dark); flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+  .mobile-drawer.open { opacity: 1; pointer-events: all; }
+  .mobile-drawer a { font-family: "Cormorant Garamond", serif; font-size: 2.5rem; font-weight: 300; color: var(--cream); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+  .mobile-drawer a:hover { color: var(--accent); }
+  .mobile-drawer .drawer-cta { font-family: "DM Sans", sans-serif; font-size: 0.82rem !important; letter-spacing: 0.18em; text-transform: uppercase; background: var(--accent); color: var(--dark) !important; padding: 1rem 2.5rem; border-radius: 2px; }
+  .mobile-drawer .drawer-insta { font-family: "DM Sans", sans-serif; font-size: 0.82rem !important; letter-spacing: 0.14em; text-transform: uppercase; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff !important; padding: 1rem 2.5rem; border-radius: 2px; display: flex; align-items: center; gap: 0.5rem; }
+  .drawer-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: rgba(242,239,248,0.4); cursor: pointer; background: none; border: none; line-height: 1; }
+  .mobile-sticky-book { display: none; position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%); z-index: 88; background: var(--accent); color: var(--dark); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 1rem 2.8rem; border-radius: 50px; text-decoration: none; white-space: nowrap; box-shadow: 0 8px 32px rgba(155,109,204,0.5); font-weight: 500; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 68px; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 5rem 6rem; }
+  .hero-tag { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 0.8rem; }
+  .hero-tag::before { content: ""; display: block; width: 2.5rem; height: 1px; background: var(--accent); }
+  .hero-h1 { font-family: "Cormorant Garamond", serif; font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.05; color: var(--dark); margin-bottom: 1.8rem; }
+  .hero-h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 1rem; line-height: 1.75; color: var(--mid); max-width: 400px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { display: inline-block; padding: 1rem 2.2rem; background: var(--dark); color: var(--cream); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.25s, transform 0.2s; }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-outline { display: inline-block; padding: 1rem 2.2rem; border: 1px solid var(--warm); color: var(--warm); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.25s; }
+  .btn-outline:hover { background: var(--warm); color: var(--white); transform: translateY(-2px); }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--stone); }
+  .stat-num { font-family: "Cormorant Garamond", serif; font-size: 2.2rem; font-weight: 300; color: var(--dark); }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm); margin-top: 0.2rem; }
+  .stat-tp { display: flex; flex-direction: column; }
+  .tp-stars-link { display: flex; align-items: center; gap: 0.3rem; text-decoration: none; }
+  .tp-star { width: 22px; height: 22px; background: #00b67a; display: inline-flex; align-items: center; justify-content: center; }
+  .tp-star svg { width: 14px; height: 14px; fill: #fff; }
+  .tp-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm); margin-top: 0.4rem; }
+  .hero-right { position: relative; overflow: hidden; background: var(--mid); }
+  .hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; opacity: 0.85; animation: slowZoom 14s ease-in-out infinite alternate; }
+  @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+  .hero-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 30%), linear-gradient(to top, rgba(26,18,37,0.35) 0%, transparent 60%); }
+  .hero-badge { position: absolute; bottom: 2.5rem; right: 2.5rem; background: rgba(26,18,37,0.85); backdrop-filter: blur(8px); color: var(--cream); padding: 1.2rem 1.6rem; border-radius: 4px; text-align: center; border: 1px solid rgba(155,109,204,0.4); }
+  .hero-badge .big { font-family: "Cormorant Garamond", serif; font-size: 2rem; font-weight: 300; color: var(--accent); }
+  .hero-badge .small { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.75; margin-top: 0.25rem; }
+
+  .marquee-wrap { background: var(--dark); color: var(--cream); padding: 1rem 0; overflow: hidden; }
+  .marquee-inner { display: flex; gap: 3rem; width: max-content; animation: marqueeScroll 22s linear infinite; }
+  @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee-item { font-family: "Cormorant Garamond", serif; font-size: 1rem; font-style: italic; white-space: nowrap; opacity: 0.75; letter-spacing: 0.06em; }
+  .marquee-dot { color: var(--accent); margin: 0 0.5rem; }
+
+  .insta-banner { background: linear-gradient(135deg, #f09433 0%, #e6683c 20%, #dc2743 45%, #cc2366 70%, #bc1888 100%); padding: 3rem 6rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .insta-banner-left { display: flex; align-items: center; gap: 1.5rem; }
+  .insta-banner-icon { background: rgba(255,255,255,0.25); border-radius: 14px; padding: 0.75rem; display: flex; }
+  .insta-banner-text h3 { font-family: "Cormorant Garamond", serif; font-size: 1.9rem; font-weight: 300; color: #fff; }
+  .insta-banner-text p { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 0.2rem; }
+  .btn-insta-white { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2.4rem; background: #fff; color: #cc2366; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap; }
+  .btn-insta-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  section { padding: 7rem 6rem; }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+  .section-label::before { content: ""; display: block; width: 2rem; height: 1px; background: var(--accent); }
+  .section-title { font-family: "Cormorant Garamond", serif; font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; color: var(--dark); }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-img-wrap { position: relative; }
+  .about-img { width: 100%; height: 580px; object-fit: cover; object-position: center 10%; filter: sepia(0.08) contrast(1.05); }
+  .about-img-frame { position: absolute; top: -1.5rem; left: -1.5rem; width: 100%; height: 100%; border: 1px solid var(--stone); z-index: -1; }
+  .about-quote { position: absolute; bottom: -1.5rem; right: -1.5rem; background: var(--dark); color: var(--cream); padding: 1.5rem 2rem; max-width: 260px; border-radius: 2px; }
+  .about-quote p { font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-style: italic; line-height: 1.5; color: var(--accent); }
+  .about-quote cite { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.6rem; opacity: 0.6; }
+  .about-body { padding-right: 2rem; }
+  .about-text { font-size: 1rem; line-height: 1.85; color: var(--mid); font-weight: 300; margin-top: 2rem; }
+  .about-quals { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+  .qual-tag { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--stone); color: var(--warm); padding: 0.4rem 0.9rem; border-radius: 2px; }
+
+  .services { background: var(--white); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 4rem; }
+  .service-card { background: var(--cream); padding: 3rem 2.5rem; position: relative; overflow: hidden; transition: background 0.35s; cursor: pointer; text-decoration: none; display: block; }
+  .service-card::before { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
+  .service-card:hover { background: var(--dark); }
+  .service-card:hover .sc-number, .service-card:hover .sc-title, .service-card:hover .sc-text, .service-card:hover .sc-list li { color: var(--cream); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .sc-number { font-family: "Cormorant Garamond", serif; font-size: 4rem; font-weight: 300; color: var(--stone); line-height: 1; margin-bottom: 1.5rem; transition: color 0.35s; }
+  .sc-title { font-family: "Cormorant Garamond", serif; font-size: 1.7rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; transition: color 0.35s; }
+  .sc-text { font-size: 0.88rem; line-height: 1.75; color: var(--mid); margin-bottom: 1.5rem; transition: color 0.35s; }
+  .sc-list { list-style: none; }
+  .sc-list li { font-size: 0.8rem; color: var(--warm); padding: 0.35rem 0; border-bottom: 1px solid rgba(155,109,204,0.2); display: flex; align-items: center; gap: 0.6rem; transition: color 0.35s; }
+  .sc-list li::before { content: "\2192"; opacity: 0.6; }
+  .sc-cta { display: inline-block; margin-top: 1.5rem; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); transition: color 0.35s; }
+  .service-card:hover .sc-cta { color: var(--gold); }
+
+  .pricing { background: var(--dark); }
+  .pricing .section-label { color: var(--accent); }
+  .pricing .section-title { color: var(--cream); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 4rem; }
+  .price-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(155,109,204,0.2); padding: 3rem; transition: background 0.3s, border-color 0.3s; }
+  .price-card:hover { background: rgba(155,109,204,0.08); border-color: var(--accent); }
+  .price-card.featured { background: var(--accent); border-color: var(--accent); grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .pc-title { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .pc-price { font-family: "Cormorant Garamond", serif; font-size: 2rem; font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 1rem; }
+  .pc-desc { font-size: 0.88rem; line-height: 1.7; color: rgba(242,239,248,0.65); margin-top: 1rem; }
+  .pc-note { font-size: 0.82rem; color: rgba(242,239,248,0.7); margin-top: 0.8rem; font-weight: 500; }
+  .btn-dark { display: inline-block; padding: 1.1rem 2.5rem; background: var(--dark); color: var(--cream); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border-radius: 2px; white-space: nowrap; transition: background 0.25s, transform 0.2s; }
+  .btn-dark:hover { background: var(--mid); transform: translateY(-2px); }
+
+  .testimonials { background: var(--white); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+  .testi-card { background: var(--cream); padding: 2.5rem; border-radius: 2px; transition: transform 0.3s; }
+  .testi-card:hover { transform: translateY(-4px); }
+  .testi-quote-mark { font-family: "Cormorant Garamond", serif; font-size: 5rem; line-height: 0.5; color: var(--stone); margin-bottom: 1rem; display: block; }
+  .testi-text { font-size: 0.88rem; line-height: 1.8; color: var(--mid); font-style: italic; margin-bottom: 1.5rem; }
+  .testi-author { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .tp-row { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.8rem; }
+  .tp-s { width: 20px; height: 20px; background: #00b67a; display: inline-flex; align-items: center; justify-content: center; border-radius: 2px; }
+  .tp-s svg { width: 12px; height: 12px; fill: #fff; }
+  .tp-link { font-size: 0.7rem; color: #00b67a; text-decoration: none; letter-spacing: 0.08em; margin-left: 0.3rem; font-weight: 600; }
+  .tp-link:hover { text-decoration: underline; }
+
+  .faq-item { border-bottom: 1px solid var(--stone); }
+  .faq-q { width: 100%; background: none; border: none; text-align: left; padding: 1.4rem 0; font-family: "Cormorant Garamond", serif; font-size: 1.25rem; font-weight: 400; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: color 0.2s; }
+  .faq-q:hover { color: var(--accent); }
+  .faq-icon { font-size: 1.5rem; font-weight: 300; color: var(--accent); flex-shrink: 0; transition: transform 0.3s; }
+  .faq-q.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { font-size: 0.9rem; line-height: 1.8; color: var(--mid); max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+  .faq-a.open { max-height: 300px; padding-bottom: 1.4rem; }
+
+  #booking { background: var(--dark); }
+  .booking-intro { text-align: center; max-width: 520px; margin: 0 auto 3.5rem; }
+  .booking-intro .section-label { justify-content: center; }
+  .booking-intro .section-label::before { display: none; }
+  .booking-intro .section-title { color: var(--cream); }
+  .booking-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 820px; margin: 0 auto; }
+  .booking-card { border: 1px solid rgba(155,109,204,0.3); border-radius: 4px; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+  .booking-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .booking-card-header { background: var(--mid); padding: 1.6rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+  .booking-card-title { font-family: "Cormorant Garamond", serif; font-size: 1.5rem; font-weight: 300; color: var(--cream); }
+  .booking-card-tag { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); background: rgba(155,109,204,0.18); padding: 0.3rem 0.7rem; border-radius: 2px; }
+  .booking-card-body { padding: 1.6rem 2rem; background: rgba(255,255,255,0.03); }
+  .booking-card-address { font-size: 0.8rem; color: var(--stone); line-height: 1.6; margin-bottom: 1rem; font-style: italic; }
+  .booking-card-hours { list-style: none; margin-bottom: 1.5rem; }
+  .booking-card-hours li { display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(242,239,248,0.55); padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .booking-card-hours li:last-child { border-bottom: none; }
+  .booking-card-hours .bday { color: var(--stone); font-weight: 500; }
+  .btn-book { display: block; width: 100%; text-align: center; padding: 0.95rem; background: var(--accent); color: var(--dark); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: background 0.25s, transform 0.2s; }
+  .btn-book:hover { background: var(--gold); transform: translateY(-1px); }
+  .booking-note { text-align: center; margin-top: 2.5rem; font-size: 0.8rem; color: rgba(242,239,248,0.35); line-height: 1.7; }
+  .booking-note a { color: var(--accent); text-decoration: none; }
+  .booking-disclaimer { text-align: center; margin-top: 2rem; font-size: 0.82rem; color: rgba(242,239,248,0.6); letter-spacing: 0.06em; border: 1px solid rgba(155,109,204,0.4); display: inline-block; width: fit-content; margin-left: auto; margin-right: auto; padding: 0.8rem 2rem; border-radius: 2px; }
+
+  .cta-strip { background: var(--accent); padding: 5rem 6rem; display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
+  .cta-strip-text { font-family: "Cormorant Garamond", serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; color: var(--dark); line-height: 1.2; max-width: 600px; }
+  .cta-strip-text em { font-style: italic; }
+
+  footer { background: var(--dark); color: rgba(242,239,248,0.6); padding: 4rem 6rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; }
+  .footer-logo { font-family: "Cormorant Garamond", serif; font-size: 1.5rem; font-weight: 300; color: var(--cream); margin-bottom: 1rem; }
+  .footer-logo span { color: var(--accent); font-style: italic; }
+  .footer-tagline { font-size: 0.82rem; line-height: 1.7; opacity: 0.6; margin-bottom: 1.2rem; }
+  .footer-col h4 { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { font-size: 0.82rem; padding: 0.3rem 0; }
+  .footer-col a { color: rgba(242,239,248,0.6); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.07); padding: 1.2rem 6rem; display: flex; justify-content: space-between; font-size: 0.72rem; color: rgba(242,239,248,0.35); }
+
+  @media (max-width: 1100px) {
+    section { padding: 5rem 2.5rem; }
+    nav { padding: 0.8rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .mobile-drawer { display: flex; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 5.5rem 2.5rem 2.5rem; }
+    .hero-right { height: 55vw; min-height: 300px; }
+    .hero-img-overlay { background: linear-gradient(to top, var(--cream) 0%, transparent 45%); }
+    .about { grid-template-columns: 1fr; gap: 4rem; }
+    .about-body { padding-right: 0; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-card.featured { grid-column: auto; grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .booking-cards { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; padding: 3rem 2.5rem; }
+    .footer-bottom { padding: 1rem 2.5rem; flex-direction: column; gap: 0.3rem; }
+    .cta-strip { padding: 4rem 2.5rem; }
+    .insta-banner { padding: 2.5rem 2.5rem; }
+  }
+  @media (max-width: 640px) {
+    section { padding: 3.5rem 1.4rem; }
+    nav { padding: 0.7rem 1.2rem; }
+    .hero { display: flex; flex-direction: column-reverse; padding-top: 58px; }
+    .hero-left { padding: 1.8rem 1.4rem 4.5rem; order: 2; }
+    .hero-right { height: 72vw; min-height: 240px; order: 1; }
+    .hero-img { object-position: center 15%; }
+    .hero-img-overlay { background: linear-gradient(to top, var(--cream) 0%, rgba(242,239,248,0.05) 55%); }
+    .hero-h1 { font-size: clamp(2.5rem, 10vw, 3.4rem); margin-bottom: 1rem; }
+    .hero-sub { font-size: 0.92rem; margin-bottom: 1.6rem; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { text-align: center; padding: 0.95rem 1.5rem; width: 100%; }
+    .hero-stats { gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
+    .hero-badge { bottom: 0.8rem; right: 0.8rem; padding: 0.75rem 1rem; }
+    .hero-badge .big { font-size: 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 2px; }
+    .service-card { padding: 2rem 1.4rem; }
+    .about-img-frame { display: none; }
+    .about-img { height: 300px; }
+    .about-quote { position: relative; bottom: auto; right: auto; margin-top: 1rem; max-width: 100%; }
+    .price-card { padding: 2rem 1.4rem; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .testi-card { padding: 2rem 1.4rem; }
+    .booking-cards { grid-template-columns: 1fr; }
+    .booking-card-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .cta-strip { padding: 3rem 1.4rem 5.5rem; flex-direction: column; align-items: flex-start; }
+    .cta-strip-text { font-size: clamp(1.8rem, 7vw, 2.2rem); }
+    .btn-dark { width: 100%; text-align: center; }
+    footer { grid-template-columns: 1fr; padding: 2.5rem 1.4rem 5rem; gap: 2rem; }
+    .footer-bottom { padding: 1rem 1.4rem; font-size: 0.68rem; flex-direction: column; gap: 0.25rem; }
+    .section-title { font-size: clamp(2rem, 8vw, 2.8rem); }
+    .mobile-sticky-book { display: block; }
+    .insta-banner { padding: 2rem 1.4rem; flex-direction: column; align-items: flex-start; }
+    .insta-banner-text h3 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <button class="drawer-close-btn" id="drawerClose">&#x2715;</button>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#testimonials">Reviews</a>
+  <a href="https://www.instagram.com/a_m_sportstherapy?igsh=MXg5a254eXAxaWQ1Yg==" target="_blank" class="drawer-insta">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+    Instagram
+  </a>
+  <a href="#booking" class="drawer-cta">Book Now</a>
+</div>
+
+<a href="#booking" class="mobile-sticky-book">Book a Session</a>
+
+<nav>
+  <a href="#home" class="nav-logo">
+    <img src="https://images.squarespace-cdn.com/content/v1/6560b74d8b42113768c72a5f/d6651568-b45b-46c4-942e-d5e74cd6f877/IMG-20231119-WA0003%281%29.jpg?format=1500w" alt="AM Sports Therapy" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="https://www.instagram.com/a_m_sportstherapy?igsh=MXg5a254eXAxaWQ1Yg==" target="_blank" class="nav-insta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      Instagram
+    </a></li>
+    <li><a href="#booking" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-tag">Sports Therapist &amp; Personal Trainer</p>
+    <h1 class="hero-h1">Feel better.<br><em>Move better.</em><br>Live without pain.</h1>
+    <p class="hero-sub">Whether you&#39;re an athlete pushing your limits or someone carrying the stress of daily life &#8212; massage therapy restores balance to your body and mind.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary">Book a Session</a>
+      <a href="#services" class="btn-outline">Explore Services</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">3+</div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num">2</div><div class="stat-label">Locations</div></div>
+      <div class="stat-tp">
+        <a href="https://uk.trustpilot.com/review/amsportstherapy.co.uk" target="_blank" class="tp-stars-link">
+          <span class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+          <span class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+          <span class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+          <span class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+          <span class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        </a>
+        <div class="tp-label">Trustpilot Reviews</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.squarespace-cdn.com/content/v1/6560b74d8b42113768c72a5f/c28f91bc-4244-4339-b311-0b4e931cfda9/MAL04591.jpg?format=750w" alt="Ana Maria" class="hero-img">
+    <div class="hero-img-overlay"></div>
+    <div class="hero-badge">
+      <div class="big">&#163;49</div>
+      <div class="small">First Session Offer<br>Clapham Only</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item">Sports Massage <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Hot Stone Therapy <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Head Massage <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Deep Tissue <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Muscle Recovery <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Postural Correction <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Stress Relief <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Pain Management <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Sports Massage <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Hot Stone Therapy <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Head Massage <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Deep Tissue <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Muscle Recovery <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Postural Correction <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Stress Relief <span class="marquee-dot">&#10022;</span></span>
+    <span class="marquee-item">Pain Management <span class="marquee-dot">&#10022;</span></span>
+  </div>
+</div>
+
+<!-- INSTAGRAM BANNER -->
+<div class="insta-banner">
+  <div class="insta-banner-left">
+    <div class="insta-banner-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="#fff" stroke="none"/></svg>
+    </div>
+    <div class="insta-banner-text">
+      <h3>@a_m_sportstherapy</h3>
+      <p>Videos, client results &amp; behind-the-scenes &#8212; follow for tips on pain relief &amp; recovery</p>
+    </div>
+  </div>
+  <a href="https://www.instagram.com/a_m_sportstherapy?igsh=MXg5a254eXAxaWQ1Yg==" target="_blank" class="btn-insta-white">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+    Follow on Instagram
+  </a>
+</div>
+
+<!-- 1. MEET YOUR THERAPIST -->
+<section id="about" style="padding:7rem 6rem;">
+  <div class="about">
+    <div class="about-body">
+      <p class="section-label">Meet Your Therapist</p>
+      <h2 class="section-title">Ana Maria <em>Virlan</em></h2>
+      <p class="about-text">Hi, I&#39;m Ana Maria &#8212; a dedicated Sports Therapist and Personal Trainer with a passion for helping people feel their best: pain-free, stress-free and balanced.</p>
+      <p class="about-text">With a background in the fitness industry <strong>since 2021</strong>, I&#39;ve worked with athletes and office workers alike. I specialise in <strong>Sports Massage</strong>, <strong>Hot Stone Therapy</strong> and <strong>Head Massage</strong>, focusing on relieving muscle tension, correcting imbalances, and calming the nervous system.</p>
+      <p class="about-text">I don&#39;t follow a robotic routine. Every session is tailored to <em>your</em> body, your goals, and what you need that day.</p>
+      <div class="about-quals">
+        <span class="qual-tag">Sports Therapist</span>
+        <span class="qual-tag">Personal Trainer</span>
+        <span class="qual-tag">Hot Stone Certified</span>
+        <span class="qual-tag">Deep Tissue</span>
+        <span class="qual-tag">Since 2021</span>
+      </div>
+    </div>
+    <div class="about-img-wrap">
+      <img src="https://images.squarespace-cdn.com/content/v1/6560b74d8b42113768c72a5f/c1e48f37-4ca6-4aed-a6cb-fa4f8ff2e65c/MAL04591.jpg?format=750w" alt="Ana Maria Virlan" class="about-img">
+      <div class="about-img-frame"></div>
+      <div class="about-quote">
+        <p>&#8220;I work with you &#8212; your goals, your lifestyle, what your body is telling me that day.&#8221;</p>
+        <cite>&#8212; Ana Maria</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. WHAT I OFFER -->
+<section class="services" id="services">
+  <p class="section-label">What I Offer</p>
+  <h2 class="section-title">Tailored therapies for<br><em>every body</em></h2>
+  <div class="services-grid">
+    <a href="#booking" class="service-card">
+      <div class="sc-number">01</div>
+      <h3 class="sc-title">Sports Massage</h3>
+      <p class="sc-text">Not just for athletes. Ideal for anyone with muscle tension, postural imbalances or an active lifestyle &#8212; including desk workers and physically demanding jobs.</p>
+      <ul class="sc-list">
+        <li>Breaks down adhesions &amp; scar tissue</li>
+        <li>Increases flexibility &amp; range of motion</li>
+        <li>Flushes out lactic acid</li>
+        <li>Speeds up injury recovery</li>
+      </ul>
+      <span class="sc-cta">Book this treatment &#8594;</span>
+    </a>
+    <a href="#booking" class="service-card">
+      <div class="sc-number">02</div>
+      <h3 class="sc-title">Hot Stone Therapy</h3>
+      <p class="sc-text">Heated volcanic basalt stones penetrate deep into muscles, delivering a level of relaxation that goes beyond a standard massage &#8212; ideal for chronic tension and anxiety.</p>
+      <ul class="sc-list">
+        <li>Deep muscle penetration via heat</li>
+        <li>Activates the parasympathetic nervous system</li>
+        <li>Improves circulation &amp; oxygen delivery</li>
+        <li>Reduces cortisol for better sleep</li>
+      </ul>
+      <span class="sc-cta">Book this treatment &#8594;</span>
+    </a>
+    <a href="#booking" class="service-card">
+      <div class="sc-number">03</div>
+      <h3 class="sc-title">Head Massage</h3>
+      <p class="sc-text">A targeted treatment for tension headaches, scalp tightness and mental stress &#8212; a deeply calming experience that works from the top down.</p>
+      <ul class="sc-list">
+        <li>Relieves tension headaches</li>
+        <li>Eases scalp &amp; neck tightness</li>
+        <li>Promotes deep mental relaxation</li>
+        <li>Improves focus &amp; clarity</li>
+      </ul>
+      <span class="sc-cta">Book this treatment &#8594;</span>
+    </a>
+  </div>
+</section>
+
+<!-- 3. PRICING -->
+<section class="pricing" id="pricing">
+  <p class="section-label">Transparent Pricing</p>
+  <h2 class="section-title">Simple, <em>honest</em> rates</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="pc-title">Clapham</div>
+      <div class="pc-price">Light Centre</div>
+      <p class="pc-desc">151 Clapham High Street, London SW4 7SS<br><br>Monday &amp; Wednesday · 14:30 – 20:30</p>
+      <p class="pc-note">Sports Massage / Deep Tissue 60 mins @ £50</p>
+      <p class="pc-note" style="color:var(--gold); margin-top:0.4rem;">&#163;49 introductory offer for new clients</p>
+      <div style="margin-top:1.5rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a href="https://app.acuityscheduling.com/schedule.php?owner=30822765&calendarID=11583903&ref=embedded_csp" target="_blank" style="display:inline-block;padding:0.9rem 1.8rem;background:var(--accent);color:var(--dark);font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-weight:500;">View &amp; Book &#8594;</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Light+Centre+151+Clapham+High+Street+London+SW4+7SS" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.9rem 1.8rem;background:rgba(255,255,255,0.08);color:var(--cream);font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid rgba(155,109,204,0.3);">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Directions
+        </a>
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="pc-title">Hersham</div>
+      <div class="pc-price">INFERNO Gym</div>
+      <p class="pc-desc">Unit 6, Lyon Road, Hersham KT12 3PU<br><br>Thu · 14:30–20:00 &nbsp;|&nbsp; Sat · 10:00–16:00<br>Sun · 10:00–16:00</p>
+      <p class="pc-note">Sports Massage / Deep Tissue 60 mins @ £50</p>
+      <div style="margin-top:1.5rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a href="https://AMSportsTherapy.as.me/" target="_blank" style="display:inline-block;padding:0.9rem 1.8rem;background:var(--accent);color:var(--dark);font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-weight:500;">View &amp; Book &#8594;</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Unit+6+Lyon+Road+Hersham+KT12+3PU" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.9rem 1.8rem;background:rgba(255,255,255,0.08);color:var(--cream);font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid rgba(155,109,204,0.3);">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Directions
+        </a>
+      </div>
+    </div>
+    <div class="price-card featured">
+      <div>
+        <div class="pc-title" style="color:var(--dark);opacity:0.7;">New Client Offer &middot; Clapham Only</div>
+        <div class="pc-price" style="color:var(--dark); font-size:3rem;">&#163;49</div>
+        <p class="pc-desc" style="color:rgba(26,18,37,0.7);">Your first 60-minute session &#8212; Sports Massage, Deep Tissue or Hot Stone Therapy at an introductory rate.</p>
+      </div>
+      <div>
+        <a href="https://app.acuityscheduling.com/schedule.php?owner=30822765&calendarID=11583903&ref=embedded_csp" target="_blank" class="btn-dark">Claim This Offer</a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:2.5rem;">
+    <p style="font-size:0.82rem; color:rgba(242,239,248,0.6); letter-spacing:0.06em; border:1px solid rgba(155,109,204,0.4); display:inline-block; padding:0.8rem 2rem; border-radius:2px;">⚠️ Please note: this is <strong>not physiotherapy</strong></p>
+  </div>
+</section>
+
+<!-- 4. TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <p class="section-label">Client Stories</p>
+  <h2 class="section-title">Real results, <em>real people</em></h2>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <span class="testi-quote-mark">&#8220;</span>
+      <div class="tp-row">
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <a href="https://uk.trustpilot.com/review/amsportstherapy.co.uk" target="_blank" class="tp-link">Trustpilot &#8594;</a>
+      </div>
+      <p class="testi-text">I&#39;ve been seeing Ana for sports massages for a year now &#8212; one of the best decisions for my physical health. Significant improvements in flexibility, faster recovery and better muscle health. A game changer.</p>
+      <span class="testi-author">&#8212; Dan</span>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote-mark">&#8220;</span>
+      <div class="tp-row">
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <a href="https://uk.trustpilot.com/review/amsportstherapy.co.uk" target="_blank" class="tp-link">Trustpilot &#8594;</a>
+      </div>
+      <p class="testi-text">Since the first appointment I felt the easing of pain I thought would never go away. The pressure technique is unique &#8212; I find myself training better and sleeping better already.</p>
+      <span class="testi-author">&#8212; Livash</span>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote-mark">&#8220;</span>
+      <div class="tp-row">
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <span class="tp-s"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+        <a href="https://uk.trustpilot.com/review/amsportstherapy.co.uk" target="_blank" class="tp-link">Trustpilot &#8594;</a>
+      </div>
+      <p class="testi-text">After regular massages I&#39;ve been pain free for the first time in over 6 months. Previously I was taking painkillers every day. Ana really has made a difference.</p>
+      <span class="testi-author">&#8212; Nicki</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FAQ -->
+<section id="faq" style="background:var(--white);">
+  <p class="section-label">Got Questions?</p>
+  <h2 class="section-title">Frequently asked <em>questions</em></h2>
+  <div style="margin-top:3rem; max-width:780px;">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do I need to be an athlete to book a sports massage?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Not at all. Sports massage is for anyone with muscle tension, stress, or postural issues — office workers, parents, people on their feet all day. If your body holds tension, you'll benefit.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What should I wear?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Wear or bring loose, comfortable clothing. Depending on the treatment area you may need to undress partially — towels are always provided for your comfort and privacy.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How often should I book?<span class="faq-icon">+</span></button>
+      <div class="faq-a">For general maintenance and stress relief, once or twice a month works well. If you're recovering from an injury or have chronic tension, weekly sessions may be recommended initially.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is this physiotherapy?<span class="faq-icon">+</span></button>
+      <div class="faq-a">No — this is not physiotherapy. Sports massage and soft tissue therapy are complementary treatments focused on muscle health, recovery and relaxation. If you need a formal physiotherapy diagnosis or rehabilitation plan, please consult a physiotherapist.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Will the massage hurt?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Sports and deep tissue massage can involve some discomfort, especially on tight areas — but it should never be unbearable. Ana will always work within your comfort level, so just let her know how the pressure feels.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How do I book or get in touch?<span class="faq-icon">+</span></button>
+      <div class="faq-a">You can book directly via the booking buttons on this page. For questions, reach out via Instagram DM at <a href="https://www.instagram.com/a_m_sportstherapy?igsh=MXg5a254eXAxaWQ1Yg==" target="_blank" style="color:var(--accent);">@a_m_sportstherapy</a> or email <a href="mailto:Annmry.sportstherapy@gmail.com" style="color:var(--accent);">Annmry.sportstherapy@gmail.com</a>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. BOOKING -->
+<section id="booking">
+  <div class="booking-intro">
+    <p class="section-label">Ready to Book?</p>
+    <h2 class="section-title">Choose your <em>location</em></h2>
+  </div>
+  <div class="booking-cards">
+    <div class="booking-card">
+      <div class="booking-card-header">
+        <div class="booking-card-title">Clapham</div>
+        <span class="booking-card-tag">&#163;49 First Session</span>
+      </div>
+      <div class="booking-card-body">
+        <p class="booking-card-address">Light Centre Clapham<br>151 Clapham High Street, London SW4 7SS</p>
+        <ul class="booking-card-hours">
+          <li><span class="bday">Monday</span><span>14:30 &#8211; 20:30</span></li>
+          <li><span class="bday">Wednesday</span><span>14:30 &#8211; 20:30</span></li>
+        </ul>
+        <a href="https://app.acuityscheduling.com/schedule.php?owner=30822765&calendarID=11583903&ref=embedded_csp" target="_blank" class="btn-book">Book Clapham &#8594;</a>
+      </div>
+    </div>
+    <div class="booking-card">
+      <div class="booking-card-header">
+        <div class="booking-card-title">Hersham</div>
+        <span class="booking-card-tag">Surrey</span>
+      </div>
+      <div class="booking-card-body">
+        <p class="booking-card-address">INFERNO FITNESS Gym<br>Unit 6, Lyon Road, Hersham KT12 3PU</p>
+        <ul class="booking-card-hours">
+          <li><span class="bday">Thursday</span><span>14:30 &#8211; 20:00</span></li>
+          <li><span class="bday">Saturday</span><span>10:00 &#8211; 16:00</span></li>
+          <li><span class="bday">Sunday</span><span>10:00 &#8211; 16:00</span></li>
+        </ul>
+        <a href="https://AMSportsTherapy.as.me/" target="_blank" class="btn-book">Book Hersham &#8594;</a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <p class="booking-note">Not sure which to pick? Reach out via <a href="https://www.instagram.com/a_m_sportstherapy?igsh=MXg5a254eXAxaWQ1Yg==" target="_blank">Instagram DM</a> or <a href="mailto:Annmry.sportstherapy@gmail.com">email Ana</a>.</p>
+    <p class="booking-disclaimer">⚠️ Please note: this is <strong>not physiotherapy</strong></p>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="cta-strip-text">Ready to feel <em>relaxed</em> and <em>pain-free</em>?<br>It all begins with a massage.</div>
+  <a href="#booking" class="btn-dark">Book a Session</a>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div>
+    <div class="footer-logo">AM <span>Sports Therapy</span></div>
+    <p class="footer-tagline">Sports Massage, Hot Stone Therapy &amp; Head Massage in Clapham and Hersham. Helping you feel better, move better and live with less pain.</p>
+    <a href="https://www.instagram.com/a_m_sportstherapy?igsh=MXg5a254eXAxaWQ1Yg==" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.82rem;margin-top:0.5rem;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;text-decoration:none;">@a_m_sportstherapy</a>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <ul>
+      <li><a href="#services">Sports Massage</a></li>
+      <li><a href="#services">Hot Stone Therapy</a></li>
+      <li><a href="#services">Head Massage</a></li>
+      <li><a href="#services">Deep Tissue</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Locations</h4>
+    <ul>
+      <li><a href="#pricing">Clapham — Light Centre</a></li>
+      <li><a href="#pricing">Hersham — INFERNO Gym</a></li>
+      <li><a href="https://app.acuityscheduling.com/schedule.php?owner=30822765&calendarID=11583903&ref=embedded_csp" target="_blank">Book Clapham</a></li>
+      <li><a href="https://AMSportsTherapy.as.me/" target="_blank">Book Hersham</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <ul>
+      <li><a href="mailto:Annmry.sportstherapy@gmail.com">Email Ana</a></li>
+      <li><a href="https://uk.trustpilot.com/review/amsportstherapy.co.uk" target="_blank" style="color:#00b67a !important; font-weight:600;">&#11088; Trustpilot Reviews</a></li>
+      <li><a href="https://lightcentre.com/user/am+sports+therapy/" target="_blank">Light Centre Profile</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>&#169; 2026 AM Sports Therapy &#8212; Ana Maria Virlan</span>
+  <span>Clapham &middot; Hersham &middot; Surrey</span>
+</div>
+
+<script>
+  function toggleFaq(btn) {
+    const ans = btn.nextElementSibling;
+    btn.classList.toggle('open');
+    ans.classList.toggle('open');
+  }
+  const hamburger = document.getElementById("hamburger");
+  const drawer = document.getElementById("mobileDrawer");
+  const drawerClose = document.getElementById("drawerClose");
+  function openDrawer() { drawer.classList.add("open"); hamburger.classList.add("open"); document.body.style.overflow = "hidden"; }
+  function closeDrawer() { drawer.classList.remove("open"); hamburger.classList.remove("open"); document.body.style.overflow = ""; }
+  hamburger.addEventListener("click", () => drawer.classList.contains("open") ? closeDrawer() : openDrawer());
+  drawerClose.addEventListener("click", closeDrawer);
+  drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
+</script>
+</body>
+</html>
